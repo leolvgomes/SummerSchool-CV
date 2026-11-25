@@ -1,4 +1,4 @@
-import cv2
+.import cv2
 import matplotlib.pyplot as plt
 
 image_bgr = cv2.imread("car.png")
