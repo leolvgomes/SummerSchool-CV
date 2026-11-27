@@ -1,0 +1,57 @@
+TREINAMENTO YOLO NO WINDOWS
+
+1. Extraia TODO o ZIP para uma pasta local.
+2. Instale Python 3.12 de 64 bits pelo python.org, incluindo Python Launcher.
+3. Execute INSTALL.bat (precisa de internet para instalar as bibliotecas).
+4. Execute TRAIN_MODEL.bat. Ele treina usando o dataset anotado incluido.
+5. Ao terminar, execute RUN_VIDEO.bat ou RUN_WEBCAM.bat.
+   Clique na janela e use Q ou Esc para sair.
+
+O QUE ESTA INCLUIDO
+train_model.py: treinamento, validacao e avaliacao final.
+dataset/: imagens e labels YOLO da classe unica person.
+  train: 324 imagens; val: 60 imagens; test: 60 imagens.
+modelos/yolo12n.pt: modelo original que serve como ponto de partida do treinamento.
+O treinamento gera modelos/pessoas.pt. Os testes de video e webcam usam ESSE modelo treinado.
+videos/videoTracking.mp4: video original para teste.
+track.py, track_video.py e track_webcam.py: deteccao, IDs e trajetorias.
+botsort_camera.yaml e bytetrack_people.yaml: configuracoes de tracking.
+
+TREINAMENTO
+Mesmo perfil do projeto: ate 20 epocas, imagem 416, batch 8,
+freeze 10, paciencia 5, seed 42, workers 0.
+Pode parar antes de 20 epocas se nao melhorar.
+Usa NVIDIA CUDA automaticamente se o PyTorch instalado tiver suporte;
+caso contrario, usa CPU. CUDA nao e requisito e nao e instalado/configurado por este pacote.
+Na CPU pode demorar. Os resultados podem variar entre computadores.
+
+COMANDOS OPCIONAIS (terminal nesta pasta)
+.venv\Scripts\python.exe train_model.py --epochs 20 --device cpu --batch 8
+.venv\Scripts\python.exe train_model.py --epochs 20 --device 0 --batch 8
+O segundo comando exige PyTorch com CUDA e placa NVIDIA compativel.
+Se faltar memoria, tente --batch 4 ou --batch 2.
+.venv\Scripts\python.exe track_webcam.py --camera-index 1
+
+PYCHARM
+Escolha .venv/Scripts/python.exe como interpretador.
+Execute train_model.py primeiro. Depois track_video.py ou track_webcam.py.
+
+RESULTADOS
+runs/: graficos, pesos por execucao e test_metrics.json.
+modelos/pessoas.pt: melhor modelo da ultima execucao concluida (substituido ao treinar novamente).
+resultados/: video com trajetorias e registros gerados ao testar o video.
+A webcam nao e gravada.
+
+SOBRE OS DADOS
+As labels foram geradas com ajuda de um modelo e revisadas; nao sao anotacoes
+manuais independentes. Treino, validacao e teste sao trechos separados do mesmo
+video de corredor, com intervalos entre eles. O desempenho nesse teste nao
+garante o mesmo resultado em webcam, outros locais ou outras pessoas.
+Nenhuma nova anotacao e necessaria para repetir este treinamento.
+Nao inclui os programas de anotacao nem a camera de continuidade do iPhone.
+
+VERIFICACAO
+A integridade das imagens/labels e a sintaxe foram verificadas no Mac.
+O treinamento e a webcam no Windows devem ser confirmados no computador de destino.
+Se a camera nao abrir, feche Zoom/Teams e permita camera para aplicativos de area de trabalho
+nas configuracoes de privacidade do Windows.

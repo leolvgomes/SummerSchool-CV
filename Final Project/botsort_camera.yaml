@@ -1,0 +1,13 @@
+# Camera profile: weak detections can maintain an ID but cannot start one.
+tracker_type: botsort
+track_high_thresh: 0.35
+track_low_thresh: 0.10
+new_track_thresh: 0.65
+track_buffer: 90
+match_thresh: 0.85
+fuse_score: true
+gmc_method: sparseOptFlow
+proximity_thresh: 0.3
+appearance_thresh: 0.8
+with_reid: true
+model: auto

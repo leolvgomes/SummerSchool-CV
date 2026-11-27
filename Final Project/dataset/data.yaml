@@ -1,0 +1,6 @@
+path: C:\Users\leona\OneDrive\Documentos\Projects\ssbcvdt-inatel\Final Project\dataset
+train: train/images
+val: val/images
+test: test/images
+names:
+  0: person
