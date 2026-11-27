@@ -1,0 +1,5 @@
+path: C:/Users/leona/OneDrive/Documentos/Projects/ssbcvdt-inatel/Day 4/dataset
+train: train/images
+val: val/images
+names:
+- person
